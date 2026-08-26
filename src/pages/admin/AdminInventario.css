@@ -41,3 +41,167 @@
 .inventario-acciones button:hover {
   background: var(--color-secundario);
 }
+
+.btn-nueva-entrada {
+  border: none;
+  background: var(--color-boton);
+  color: white;
+  padding: 11px 18px;
+  border-radius: var(--radio-sm);
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: var(--espacio-md);
+}
+
+.btn-nueva-entrada:hover {
+  background: var(--color-primario-hover);
+}
+
+.entrada-mercaderia-form {
+  width: 100%;
+  max-width: 980px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--color-card);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: var(--espacio-md);
+  margin-bottom: var(--espacio-lg);
+  box-shadow: var(--sombra-suave);
+}
+
+.entrada-mercaderia-cabecera h3 {
+  margin: 0;
+  color: var(--color-primario);
+}
+
+.entrada-mercaderia-cabecera p {
+  margin: 4px 0 0;
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+}
+
+.entrada-lineas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.entrada-linea {
+  display: grid;
+  grid-template-columns: 28px minmax(190px, 1.4fr) minmax(100px, 0.65fr) minmax(130px, 0.8fr) minmax(150px, 1fr) 34px;
+  gap: 10px;
+  align-items: end;
+  padding: 12px;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+}
+
+.entrada-linea label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.entrada-linea label span {
+  font-weight: 400;
+  color: var(--color-texto-suave);
+}
+
+.entrada-linea input,
+.entrada-linea select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.entrada-linea-numero {
+  align-self: center;
+  font-weight: 700;
+  color: var(--color-primario);
+  text-align: center;
+}
+
+.entrada-linea-eliminar {
+  width: 34px;
+  height: 38px;
+  border: none;
+  border-radius: var(--radio-sm);
+  background: var(--color-rojo-suave);
+  color: var(--color-rojo);
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+.entrada-agregar-linea {
+  width: fit-content;
+  border: 1px dashed var(--color-primario);
+  background: transparent;
+  color: var(--color-primario);
+  padding: 9px 14px;
+  border-radius: var(--radio-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.form-error {
+  padding: 10px 12px;
+  border-radius: var(--radio-sm);
+  background: var(--color-rojo-suave);
+  color: var(--color-rojo);
+  font-size: 0.88rem;
+}
+
+.entrada-mercaderia-form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+  .inventario-filtros {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .btn-nueva-entrada {
+    width: 100%;
+  }
+
+  .entrada-mercaderia-form {
+    max-width: 100%;
+    padding: 14px;
+  }
+
+  .entrada-linea {
+    grid-template-columns: 1fr 34px;
+    gap: 10px;
+  }
+
+  .entrada-linea-numero {
+    display: none;
+  }
+
+  .entrada-linea label {
+    grid-column: 1 / -1;
+  }
+
+  .entrada-linea-eliminar {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .entrada-mercaderia-form .form-acciones {
+    flex-direction: column;
+  }
+
+  .entrada-mercaderia-form .form-acciones button {
+    width: 100%;
+  }
+}

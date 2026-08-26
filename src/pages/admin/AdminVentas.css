@@ -1,0 +1,357 @@
+
+/* ============================================================
+   ADMIN VENTAS
+   ============================================================ */
+
+.admin-ventas {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* ============================================================
+   LISTA DE VENTAS
+   ============================================================ */
+
+.ventas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+/* ============================================================
+   TARJETA DE VENTA
+   ============================================================ */
+
+.venta-card {
+  width: 100%;
+  box-sizing: border-box;
+
+  background: var(--color-card);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+
+  box-shadow: var(--sombra-suave);
+
+  overflow: hidden;
+}
+
+/* Resumen principal */
+
+.venta-card-resumen {
+  display: grid;
+
+  grid-template-columns:
+    1.5fr
+    1.2fr
+    0.8fr
+    0.9fr
+    1fr
+    auto;
+
+  align-items: center;
+  gap: 18px;
+
+  padding: 18px;
+}
+
+/* Información */
+
+.venta-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.venta-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+  text-transform: uppercase;
+}
+
+.venta-info strong {
+  color: var(--color-texto);
+  font-size: 0.88rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.venta-total strong {
+  color: var(--color-primario);
+  font-size: 1rem;
+}
+
+/* Botón */
+
+.btn-detalle-venta {
+  border: none;
+
+  background: var(--color-primario);
+  color: white;
+
+  padding: 9px 14px;
+
+  border-radius: var(--radio-sm);
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  white-space: nowrap;
+
+  transition: 0.15s ease;
+}
+
+.btn-detalle-venta:hover {
+  background: var(--color-primario-hover);
+}
+
+/* ============================================================
+   DETALLE
+   ============================================================ */
+
+.venta-detalle {
+  border-top: 1px solid var(--color-borde);
+
+  padding: 20px;
+
+  background: var(--color-fondo-suave);
+
+  box-sizing: border-box;
+}
+
+.venta-detalle-titulo {
+  margin-bottom: 15px;
+}
+
+.venta-detalle-titulo h3 {
+  margin: 0;
+
+  color: var(--color-primario);
+
+  font-size: 1rem;
+}
+
+/* ============================================================
+   PRODUCTOS DE LA VENTA
+   ============================================================ */
+
+.venta-productos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.venta-producto {
+  display: grid;
+
+  grid-template-columns:
+    2fr
+    0.7fr
+    1fr
+    1fr
+    1fr
+    1fr;
+
+  gap: 15px;
+  align-items: center;
+
+  padding: 14px;
+
+  background: var(--color-card);
+
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+
+  box-sizing: border-box;
+}
+
+.venta-producto > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.venta-producto span {
+  font-size: 0.7rem;
+  color: var(--color-texto-suave);
+}
+
+.venta-producto strong {
+  font-size: 0.84rem;
+  color: var(--color-texto);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.venta-producto-nombre strong {
+  font-size: 0.9rem;
+}
+
+.venta-producto .ganancia strong {
+  color: var(--color-primario);
+}
+
+/* ============================================================
+   RESUMEN FINAL
+   ============================================================ */
+
+.venta-resumen-final {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 30px;
+
+  margin-top: 16px;
+  padding-top: 15px;
+
+  border-top: 1px solid var(--color-borde);
+}
+
+.venta-resumen-final > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.venta-resumen-final span {
+  font-size: 0.72rem;
+  color: var(--color-texto-suave);
+}
+
+.venta-resumen-final strong {
+  font-size: 0.92rem;
+  color: var(--color-texto);
+}
+
+.venta-resumen-final .ganancia-total strong {
+  color: var(--color-primario);
+  font-size: 1rem;
+}
+
+/* ============================================================
+   SIN DETALLE
+   ============================================================ */
+
+.venta-sin-detalle {
+  padding: 15px;
+
+  background: var(--color-card);
+
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+
+  color: var(--color-texto-suave);
+
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1000px) {
+
+  .venta-card-resumen {
+    grid-template-columns:
+      repeat(3, 1fr);
+
+  }
+
+  .btn-detalle-venta {
+    justify-self: start;
+  }
+
+  .venta-producto {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+}
+
+/* ============================================================
+   CELULAR
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+  .admin-ventas {
+    width: 100%;
+  }
+
+  .ventas-lista {
+    width: 100%;
+  }
+
+  .venta-card {
+    width: 100%;
+  }
+
+  .venta-card-resumen {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    padding: 15px;
+  }
+
+  .venta-total {
+    grid-column: 1 / -1;
+
+    padding-top: 10px;
+
+    border-top: 1px solid var(--color-borde);
+  }
+
+  .btn-detalle-venta {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  .venta-detalle {
+    padding: 14px;
+  }
+
+  .venta-producto {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    padding: 14px;
+  }
+
+  .venta-producto-nombre {
+    grid-column: 1 / -1;
+  }
+
+  .venta-resumen-final {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    justify-content: stretch;
+  }
+
+  .venta-resumen-final .ganancia-total {
+    grid-column: 1 / -1;
+
+    padding-top: 10px;
+
+    border-top: 1px solid var(--color-borde);
+  }
+
+}

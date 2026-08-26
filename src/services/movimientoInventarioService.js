@@ -1,81 +1,225 @@
 import {
-  collection, doc, addDoc, query, where, orderBy, onSnapshot,
-  serverTimestamp, getDocs,
+  collection,
+  doc,
+  addDoc,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
+  serverTimestamp,
+  getDocs,
 } from 'firebase/firestore';
+
 import { db } from '../firebase/config';
 
-// Registra un movimiento en el historial. Nunca se borra ni se sobrescribe (regla 11).
-export async function registrarMovimiento({ productoId, tipo, cantidad, loteId, costoUnitario, motivo, realizadoPor }) {
+// ============================================================
+// REGISTRAR MOVIMIENTO
+// ============================================================
+
+export async function registrarMovimiento({
+  productoId,
+  tipo,
+  cantidad,
+  loteId,
+  costoUnitario,
+  motivo,
+  realizadoPor,
+}) {
   return addDoc(collection(db, 'movimientosInventario'), {
     productoId,
-    tipo, // 'entrada' | 'venta' | 'ajuste' | 'merma'
-    cantidad,
+    tipo,
+    cantidad: Number(cantidad),
     loteId: loteId ?? null,
-    costoUnitario: costoUnitario ?? null,
+    costoUnitario:
+      costoUnitario !== undefined && costoUnitario !== null
+        ? Number(costoUnitario)
+        : null,
     motivo: motivo ?? '',
-    realizadoPor,
+    realizadoPor: realizadoPor ?? null,
     creadoEn: serverTimestamp(),
   });
 }
 
-export function subscribeToHistorialProducto(productoId, callback) {
+// ============================================================
+// REGISTRAR MOVIMIENTO DENTRO DE UNA TRANSACCIÓN
+// ============================================================
+
+export function registrarMovimientoEnTransaccion(
+  transaction,
+  {
+    productoId,
+    tipo,
+    cantidad,
+    loteId,
+    costoUnitario,
+    motivo,
+    realizadoPor,
+  }
+) {
+  const movimientoRef = doc(
+    collection(db, 'movimientosInventario')
+  );
+
+  transaction.set(movimientoRef, {
+    productoId,
+    tipo,
+    cantidad: Number(cantidad),
+    loteId: loteId ?? null,
+    costoUnitario:
+      costoUnitario !== undefined && costoUnitario !== null
+        ? Number(costoUnitario)
+        : null,
+    motivo: motivo ?? '',
+    realizadoPor: realizadoPor ?? null,
+    creadoEn: serverTimestamp(),
+  });
+
+  return movimientoRef.id;
+}
+
+// ============================================================
+// HISTORIAL
+// ============================================================
+
+export function subscribeToHistorialProducto(
+  productoId,
+  callback
+) {
   const q = query(
     collection(db, 'movimientosInventario'),
     where('productoId', '==', productoId),
     orderBy('creadoEn', 'desc')
   );
+
   return onSnapshot(q, (snapshot) => {
-    callback(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    callback(
+      snapshot.docs.map((documento) => ({
+        id: documento.id,
+        ...documento.data(),
+      }))
+    );
   });
 }
 
-// --- Consumo FIFO de lotes ---
-// Firestore exige que TODAS las lecturas de una transacción ocurran antes
-// que cualquier escritura. Por eso esto se divide en dos pasos:
-// 1) planificarConsumoFIFO: solo lee, calcula qué lotes usar (más antiguos primero).
-// 2) aplicarConsumoFIFO: solo escribe, usando el plan ya calculado.
-// El que llama a esto (venta manual o confirmación de pedido) debe
-// planificar TODOS los productos primero, y recién después aplicar todo.
+// ============================================================
+// PLANIFICAR CONSUMO FIFO
+// ============================================================
 
-export async function planificarConsumoFIFO(transaction, productoId, cantidadRequerida) {
+export async function planificarConsumoFIFO(
+  transaction,
+  productoId,
+  cantidadRequerida
+) {
+  const cantidad = Number(cantidadRequerida);
+
+  if (!Number.isFinite(cantidad) || cantidad <= 0) {
+    throw new Error(
+      'La cantidad a consumir debe ser mayor que 0'
+    );
+  }
+
   const lotesQuery = query(
     collection(db, 'lotes'),
     where('productoId', '==', productoId),
     where('cantidadDisponible', '>', 0),
     orderBy('fechaIngreso', 'asc')
   );
-  const lotesSnap = await getDocs(lotesQuery);
-  const lotesRefs = lotesSnap.docs.map((d) => doc(db, 'lotes', d.id));
-  const lotesFrescos = await Promise.all(lotesRefs.map((ref) => transaction.get(ref)));
 
-  let restante = cantidadRequerida;
+  /*
+   * transaction.get() no acepta una consulta.
+   * Primero obtenemos los lotes candidatos.
+   */
+  const lotesSnapshot = await getDocs(lotesQuery);
+
+  let restante = cantidad;
   let costoTotal = 0;
+
   const consumos = [];
 
-  for (let i = 0; i < lotesFrescos.length; i++) {
-    if (restante <= 0) break;
-    const snap = lotesFrescos[i];
-    if (!snap.exists()) continue;
-    const disponible = snap.data().cantidadDisponible;
-    if (disponible <= 0) continue;
+  /*
+   * Volvemos a leer cada documento mediante la transacción
+   * para que las escrituras posteriores utilicen las referencias
+   * correctas de Firestore.
+   */
+  for (const loteDocumento of lotesSnapshot.docs) {
+    if (restante <= 0) {
+      break;
+    }
 
-    const tomar = Math.min(disponible, restante);
-    const costoUnitario = snap.data().costoUnitario;
+    const loteRef = loteDocumento.ref;
 
-    consumos.push({ ref: lotesRefs[i], loteId: snap.id, cantidad: tomar, disponibleActual: disponible, costoUnitario });
-    costoTotal += tomar * costoUnitario;
-    restante -= tomar;
+    if (!loteRef) {
+      continue;
+    }
+
+    const loteSnapshot = await transaction.get(loteRef);
+
+    if (!loteSnapshot.exists()) {
+      continue;
+    }
+
+    const lote = loteSnapshot.data();
+
+    const disponible = Number(
+      lote.cantidadDisponible ?? 0
+    );
+
+    if (disponible <= 0) {
+      continue;
+    }
+
+    const cantidadTomar = Math.min(
+      disponible,
+      restante
+    );
+
+    const costoUnitario = Number(
+      lote.costoUnitario ?? 0
+    );
+
+    consumos.push({
+      ref: loteRef,
+      loteId: loteSnapshot.id,
+      cantidad: cantidadTomar,
+      disponibleActual: disponible,
+      costoUnitario,
+    });
+
+    costoTotal +=
+      cantidadTomar * costoUnitario;
+
+    restante -= cantidadTomar;
   }
 
   if (restante > 0) {
-    throw new Error('Stock insuficiente en lotes para completar la operación');
+    throw new Error(
+      'Stock insuficiente en lotes para completar la operación'
+    );
   }
 
-  return { productoId, cantidadRequerida, consumos, costoTotal, costoPromedio: costoTotal / cantidadRequerida };
+  return {
+    productoId,
+    cantidadRequerida: cantidad,
+    consumos,
+    costoTotal,
+    costoPromedio:
+      costoTotal / cantidad,
+  };
 }
 
-export function aplicarConsumoFIFO(transaction, plan) {
-  plan.consumos.forEach((c) => {
-    transaction.update(c.ref, { cantidadDisponible: c.disponibleActual - c.cantidad });
-  });
+// ============================================================
+// APLICAR CONSUMO FIFO
+// ============================================================
+
+export function aplicarConsumoFIFO(
+  transaction,
+  plan
+) {
+  for (const consumo of plan.consumos) {
+    transaction.update(consumo.ref, {
+      cantidadDisponible:
+        consumo.disponibleActual -
+        consumo.cantidad,
+    });
+  }
 }
