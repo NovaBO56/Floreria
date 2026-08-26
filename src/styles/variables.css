@@ -1,0 +1,38 @@
+:root {
+  --color-primario: #d6336c;
+  --color-primario-hover: #b82a5b;
+  --color-primario-suave: #fff0f5;
+  --color-secundario: #f8d7e3;
+  --color-boton: #d6336c;
+  --color-fondo: #ffffff;
+  --color-fondo-suave: #fbf8f9;
+  --color-texto: #212529;
+  --color-texto-suave: #6c757d;
+  --color-borde: #ececec;
+  --color-card: #ffffff;
+  --color-verde: #198754;
+  --color-verde-suave: #e6f4ea;
+  --color-rojo: #dc3545;
+  --color-rojo-suave: #fdecea;
+  --color-amarillo: #ffc107;
+
+  --fuente-titulos: "Playfair Display", Georgia, "Times New Roman", serif;
+  --fuente-texto: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --espacio-xs: 6px;
+  --espacio-sm: 12px;
+  --espacio-md: 20px;
+  --espacio-lg: 32px;
+  --espacio-xl: 48px;
+
+  --radio-sm: 8px;
+  --radio: 14px;
+  --radio-lg: 20px;
+
+  --sombra-suave: 0 4px 18px rgba(0, 0, 0, 0.07);
+  --sombra-card: 0 8px 25px rgba(0, 0, 0, 0.08);
+  --sombra-flotante: 0 12px 32px rgba(0, 0, 0, 0.14);
+
+  --admin-sidebar-ancho: 245px;
+  --admin-contenido-max: 1200px;
+}

@@ -1,0 +1,173 @@
+/* =========================================================
+   COMPONENTES GLOBALES REUTILIZABLES
+   Usados en más de una página/componente — todo lo que es
+   específico de un solo componente vive en su propio CSS.
+   ========================================================= */
+
+/* --- Inputs base (usados en todos los formularios) --- */
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 11px 13px;
+  border: 1px solid #ddd;
+  border-radius: var(--radio-sm);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.12);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Checkbox/radio en línea junto a su etiqueta */
+.checkbox-inline {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500 !important;
+}
+
+.checkbox-inline input {
+  width: auto !important;
+  accent-color: var(--color-primario);
+}
+
+/* --- Mensajes de error de formulario --- */
+
+.form-error {
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--color-rojo-suave);
+  color: var(--color-rojo);
+  border-radius: var(--radio-sm);
+  font-size: 0.85rem;
+}
+
+/* --- Botones de acciones de formulario (guardar/cancelar) --- */
+
+.form-acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.form-acciones button {
+  border: none;
+  padding: 11px 18px;
+  border-radius: var(--radio-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.form-acciones button[type="submit"] {
+  background: var(--color-boton);
+  color: white;
+}
+
+.form-acciones button[type="submit"]:hover {
+  background: var(--color-primario-hover);
+}
+
+.form-acciones button[type="button"] {
+  background: #f1f3f5;
+  color: var(--color-texto);
+}
+
+.form-acciones button[type="button"]:hover {
+  background: #e9ecef;
+}
+
+/* --- Tabla admin (Productos, Categorías, Ventas, Caja, Reportes...) --- */
+
+.admin-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-card);
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+}
+
+.admin-tabla th,
+.admin-tabla td {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.admin-tabla th {
+  background: var(--color-fondo-suave);
+  color: var(--color-texto-suave);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.admin-tabla tbody tr:hover {
+  background: var(--color-primario-suave);
+}
+
+.admin-tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-tabla button {
+  border: none;
+  background: var(--color-primario-suave);
+  color: var(--color-primario);
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-tabla button:hover {
+  background: var(--color-secundario);
+}
+
+.admin-tabla input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primario);
+}
+
+/* Scroll horizontal en móvil para que la tabla no rompa el layout */
+@media (max-width: 768px) {
+  .admin-tabla-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-tabla {
+    min-width: 640px;
+  }
+}
+
+/* --- Badges genéricos de estado --- */
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badge-verde { background: var(--color-verde-suave); color: var(--color-verde); }
+.badge-rojo { background: var(--color-rojo-suave); color: var(--color-rojo); }

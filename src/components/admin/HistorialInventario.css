@@ -1,0 +1,29 @@
+.historial-inventario {
+  margin-top: var(--espacio-md);
+  background: var(--color-card);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: var(--espacio-md);
+  box-shadow: var(--sombra-suave);
+}
+
+.historial-inventario > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--espacio-sm);
+}
+
+.historial-inventario > header h3 {
+  font-size: 1.05rem;
+  color: var(--color-primario);
+}
+
+.historial-inventario > header button {
+  border: none;
+  background: var(--color-fondo-suave);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}

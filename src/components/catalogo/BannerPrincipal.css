@@ -1,0 +1,133 @@
+.banner-principal {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--color-secundario);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.banner-principal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(20, 15, 18, 0.62) 0%, rgba(20, 15, 18, 0.32) 55%, rgba(20, 15, 18, 0.08) 100%);
+}
+
+.banner-contenido {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  padding: 0 8%;
+  color: white;
+  animation: entrada-suave 0.6s ease both;
+}
+
+.banner-contenido h2 {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+
+.banner-contenido p {
+  margin: 0 0 32px;
+  font-size: 1.15rem;
+  opacity: 0.95;
+  max-width: 460px;
+}
+
+.banner-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.banner-cta-principal,
+.banner-cta-secundaria {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 30px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.banner-cta-principal {
+  background: var(--color-boton);
+  color: white;
+  box-shadow: 0 8px 24px rgba(214, 51, 108, 0.4);
+}
+
+.banner-cta-principal:hover {
+  background: var(--color-primario-hover);
+  transform: translateY(-2px);
+}
+
+.banner-cta-principal:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.banner-cta-secundaria {
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.banner-cta-secundaria:hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateY(-2px);
+}
+
+.banner-cta-secundaria:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* =========================================================
+   BREAKPOINTS
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .banner-principal {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-principal {
+    min-height: 440px;
+    align-items: flex-end;
+  }
+
+  .banner-contenido {
+    padding: 0 6% 48px;
+    max-width: 100%;
+  }
+
+  .banner-contenido p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-principal {
+    min-height: 400px;
+  }
+
+  .banner-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .banner-cta-principal,
+  .banner-cta-secundaria {
+    justify-content: center;
+    width: 100%;
+  }
+}

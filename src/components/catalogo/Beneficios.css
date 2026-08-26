@@ -1,0 +1,60 @@
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espacio-md);
+  padding: var(--espacio-lg) 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.beneficio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: var(--espacio-md);
+  background: var(--color-fondo-suave);
+  border-radius: var(--radio);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.beneficio-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-suave);
+}
+
+.beneficio-icono {
+  font-size: 1.8rem;
+}
+
+.beneficio-item p {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+@media (max-width: 768px) {
+  .beneficios {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Celular angosto: carrusel horizontal táctil */
+@media (max-width: 480px) {
+  .beneficios {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--espacio-md) 4%;
+  }
+
+  .beneficio-item {
+    flex: 0 0 auto;
+    width: 150px;
+    scroll-snap-align: start;
+  }
+}

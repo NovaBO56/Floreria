@@ -1,0 +1,233 @@
+.header-catalogo {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid var(--color-borde);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.header-fila-principal {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 5%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.header-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.header-marca h1 {
+  margin: 0;
+  color: var(--color-primario);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.header-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.header-nav {
+  display: none;
+  gap: 22px;
+  flex-shrink: 0;
+}
+
+.header-nav a {
+  color: var(--color-texto);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+  position: relative;
+}
+
+.header-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--color-primario);
+  transition: width 0.2s ease;
+}
+
+.header-nav a:hover {
+  color: var(--color-primario);
+}
+
+.header-nav a:hover::after {
+  width: 100%;
+}
+
+.header-buscador {
+  flex: 1;
+  max-width: 480px;
+  position: relative;
+}
+
+.header-buscador input {
+  border-radius: 30px;
+  padding: 11px 40px 11px 20px;
+  background: var(--color-fondo-suave);
+  border-color: transparent;
+}
+
+.header-buscador input:focus {
+  background: white;
+}
+
+.buscador-limpiar {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-borde);
+  color: var(--color-texto);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buscador-limpiar:hover {
+  background: var(--color-secundario);
+}
+
+.header-buscador-movil {
+  display: none;
+}
+
+.header-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.header-carrito {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-primario);
+  color: white;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.header-carrito:hover {
+  background: var(--color-primario-hover);
+  transform: scale(1.06);
+}
+
+.header-carrito:active {
+  transform: scale(0.94);
+}
+
+.carrito-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 21px;
+  height: 21px;
+  padding: 2px 5px;
+  border-radius: 50%;
+  background: #212529;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulso 0.3s ease;
+}
+
+.header-menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-fondo-suave);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.header-nav-movil {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 5% 16px;
+  animation: entrada-suave 0.2s ease both;
+}
+
+.header-nav-movil a {
+  padding: 12px 8px;
+  color: var(--color-texto);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+/* =========================================================
+   BREAKPOINTS
+   ========================================================= */
+
+@media (min-width: 900px) {
+  .header-nav {
+    display: flex;
+  }
+}
+
+@media (max-width: 899px) {
+  .header-fila-principal .header-buscador {
+    display: none;
+  }
+
+  .header-buscador-movil {
+    display: block;
+    padding: 0 5% 12px;
+  }
+
+  .header-menu-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-fila-principal {
+    gap: 12px;
+    padding: 12px 4%;
+  }
+
+  .header-marca h1 {
+    font-size: 1.15rem;
+  }
+
+  .header-logo {
+    width: 36px;
+    height: 36px;
+  }
+}

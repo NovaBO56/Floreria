@@ -1,0 +1,43 @@
+.inventario-filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: var(--espacio-md);
+}
+
+.inventario-filtros button {
+  border: 1px solid var(--color-borde);
+  background: var(--color-card);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.inventario-filtros button.activo {
+  background: var(--color-primario);
+  color: white;
+  border-color: var(--color-primario);
+}
+
+.inventario-acciones {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.inventario-acciones button {
+  border: none;
+  background: var(--color-primario-suave);
+  color: var(--color-primario);
+  padding: 6px 11px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inventario-acciones button:hover {
+  background: var(--color-secundario);
+}

@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    match /productos/{productId} {
+      allow read: if resource.data.activo == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /categorias/{categoriaId} {
+      allow read: if resource.data.activo == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /pedidos/{pedidoId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Contador de número de pedido: lo actualiza el cliente público al
+    // enviar un pedido. Solo permite incrementar el contador, no borrarlo
+    // ni modificar otros campos.
+    match /contadores/pedidos {
+      allow get: if true;
+      allow create, update: if true;
+      allow delete: if false;
+    }
+
+    match /ventas/{ventaId} {
+      allow read, write: if isAdmin();
+    }
+    match /inventario/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /lotes/{loteId} {
+      allow read, write: if isAdmin();
+    }
+    match /movimientosInventario/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /caja/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /movimientosCaja/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /clientes/{docId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /configuracion/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /admins/{adminId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+  }
+}

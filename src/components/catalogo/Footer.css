@@ -1,0 +1,61 @@
+.footer-catalogo {
+  margin-top: var(--espacio-xl);
+  padding: var(--espacio-xl) 5% var(--espacio-lg);
+  background: var(--color-texto);
+  color: rgba(255, 255, 255, 0.85);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--espacio-lg);
+}
+
+.footer-catalogo h3 {
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.footer-catalogo h4 {
+  color: white;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.footer-catalogo p {
+  margin: 0;
+  font-size: 0.88rem;
+  opacity: 0.85;
+}
+
+.footer-contacto a,
+.footer-info a {
+  display: block;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.88rem;
+  margin-bottom: 6px;
+  transition: color 0.15s ease;
+}
+
+.footer-contacto a:hover,
+.footer-info a:hover {
+  color: var(--color-secundario);
+}
+
+.footer-copy {
+  grid-column: 1 / -1;
+  padding-top: var(--espacio-md);
+  margin-top: var(--espacio-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.78rem;
+  opacity: 0.65;
+}
+
+@media (max-width: 768px) {
+  .footer-catalogo {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-marca {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,80 @@
+.reportes-filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: var(--espacio-md);
+}
+
+.reportes-filtros button {
+  border: 1px solid var(--color-borde);
+  background: var(--color-card);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.reportes-filtros button.activo {
+  background: var(--color-primario);
+  color: white;
+  border-color: var(--color-primario);
+}
+
+.reportes-rango-custom {
+  display: flex;
+  gap: 14px;
+  margin-bottom: var(--espacio-md);
+}
+
+.reportes-rango-custom label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.admin-reportes > button {
+  border: none;
+  background: var(--color-boton);
+  color: white;
+  padding: 11px 22px;
+  border-radius: var(--radio-sm);
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: var(--espacio-md);
+}
+
+.admin-reportes > button:hover:not(:disabled) {
+  background: var(--color-primario-hover);
+}
+
+.reportes-resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: var(--espacio-md) 0 var(--espacio-lg);
+}
+
+.reporte-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: var(--espacio-md);
+  box-shadow: var(--sombra-suave);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reporte-card span {
+  color: var(--color-texto-suave);
+  font-size: 0.8rem;
+}
+
+.reporte-card strong {
+  font-size: 1.5rem;
+  color: var(--color-primario);
+}

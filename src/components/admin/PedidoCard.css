@@ -1,0 +1,98 @@
+.pedidos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--espacio-md);
+}
+
+.pedido-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: var(--espacio-md);
+  box-shadow: var(--sombra-suave);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: entrada-suave 0.3s ease both;
+}
+
+.pedido-card > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.pedido-card h3 {
+  font-family: var(--fuente-texto);
+  font-size: 1.05rem;
+  color: var(--color-primario);
+}
+
+.pedido-fecha {
+  font-size: 0.76rem;
+  color: var(--color-texto-suave);
+}
+
+.pedido-card p {
+  margin: 2px 0;
+  font-size: 0.88rem;
+}
+
+.pedido-items {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  font-size: 0.87rem;
+}
+
+.pedido-items li {
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--color-borde);
+}
+
+.pedido-total {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.pedido-acciones {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-confirmar,
+.btn-rechazar {
+  flex: 1;
+  border: none;
+  padding: 11px;
+  border-radius: var(--radio-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.btn-confirmar {
+  background: var(--color-verde);
+  color: white;
+}
+
+.btn-confirmar:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn-rechazar {
+  background: var(--color-rojo);
+  color: white;
+}
+
+.btn-rechazar:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn-confirmar:disabled,
+.btn-rechazar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

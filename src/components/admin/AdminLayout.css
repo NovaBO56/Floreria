@@ -1,0 +1,152 @@
+.admin-layout {
+  min-height: 100vh;
+  display: flex;
+  background: var(--color-fondo-suave);
+}
+
+/* --- Sidebar --- */
+
+.admin-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--admin-sidebar-ancho);
+  padding: 26px 16px;
+  background: var(--color-card);
+  border-right: 1px solid var(--color-borde);
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.04);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar h2 {
+  margin: 0 10px 28px;
+  color: var(--color-primario);
+  font-size: 1.3rem;
+}
+
+.admin-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radio-sm);
+  color: #495057;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: 0.15s ease;
+}
+
+.admin-sidebar nav a:hover {
+  background: var(--color-primario-suave);
+  color: var(--color-primario);
+}
+
+/* React Router agrega .active automáticamente al link de la ruta actual */
+.admin-sidebar nav a.active {
+  background: var(--color-primario);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(214, 51, 108, 0.28);
+}
+
+.btn-logout {
+  margin-top: auto;
+  border: none;
+  background: var(--color-rojo-suave);
+  color: var(--color-rojo);
+  padding: 12px 14px;
+  border-radius: var(--radio-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.btn-logout:hover {
+  background: #f8d0d3;
+}
+
+/* --- Área de contenido --- */
+
+.admin-contenido {
+  flex: 1;
+  margin-left: var(--admin-sidebar-ancho);
+  padding: var(--espacio-lg) var(--espacio-lg) 60px;
+  max-width: var(--admin-contenido-max);
+}
+
+.admin-contenido h1 {
+  font-size: 1.7rem;
+  margin-bottom: var(--espacio-md);
+  color: var(--color-texto);
+}
+
+.admin-contenido h2 {
+  font-size: 1.15rem;
+  margin: var(--espacio-lg) 0 var(--espacio-sm);
+  color: var(--color-texto);
+}
+
+/* Contenedores raíz de cada página admin: mismo ritmo vertical para todas */
+.admin-pedidos,
+.admin-productos,
+.admin-categorias,
+.admin-inventario,
+.admin-ventas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-sm);
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 900px) {
+  .admin-layout {
+    display: block;
+  }
+
+  .admin-sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 14px 16px;
+  }
+
+  .admin-sidebar h2 {
+    margin: 0 12px 0 0;
+    flex-shrink: 0;
+  }
+
+  .admin-sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+
+  .admin-sidebar nav a {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .btn-logout {
+    margin: 8px 0 0 auto;
+  }
+
+  .admin-contenido {
+    margin-left: 0;
+    padding: var(--espacio-md) 5% 40px;
+  }
+}

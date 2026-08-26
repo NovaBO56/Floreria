@@ -1,0 +1,185 @@
+/* position: fixed asegura que el drawer flote sobre la página
+   y jamás empuje el contenido — no participa del flujo normal. */
+.carrito-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 300;
+  display: flex;
+  justify-content: flex-end;
+  animation: entrada-suave 0.2s ease both;
+}
+
+.carrito-drawer {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  background: var(--color-card);
+  padding: var(--espacio-md);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sombra-flotante);
+  animation: deslizar-derecha 0.25s ease both;
+}
+
+.carrito-drawer > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--espacio-md);
+  flex-shrink: 0;
+}
+
+.carrito-drawer > header h2 {
+  font-size: 1.3rem;
+  color: var(--color-primario);
+}
+
+.carrito-drawer > header button {
+  border: none;
+  background: var(--color-fondo-suave);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.carrito-vacio {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-suave);
+  text-align: center;
+}
+
+.carrito-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-md);
+}
+
+.carrito-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding-bottom: var(--espacio-md);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.carrito-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: var(--radio-sm);
+}
+
+.carrito-item-info h4 {
+  font-family: var(--fuente-texto);
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.carrito-item-info p {
+  margin: 0 0 8px;
+  color: var(--color-primario);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.carrito-item-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carrito-item-cantidad button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--color-borde);
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.carrito-item-cantidad span {
+  min-width: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.carrito-item-quitar {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  align-self: start;
+  opacity: 0.6;
+}
+
+.carrito-item-quitar:hover {
+  opacity: 1;
+}
+
+.carrito-footer {
+  flex-shrink: 0;
+  padding-top: var(--espacio-md);
+  margin-top: var(--espacio-sm);
+  border-top: 1px solid var(--color-borde);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.carrito-subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.btn-seguir-comprando,
+.btn-proceder-pedido {
+  width: 100%;
+  border: none;
+  padding: 13px;
+  border-radius: var(--radio-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.btn-seguir-comprando {
+  background: var(--color-fondo-suave);
+  color: var(--color-texto);
+}
+
+.btn-seguir-comprando:hover {
+  background: #eee;
+}
+
+.btn-proceder-pedido {
+  background: var(--color-boton);
+  color: white;
+}
+
+.btn-proceder-pedido:hover {
+  background: var(--color-primario-hover);
+}
+
+@media (max-width: 480px) {
+  .carrito-drawer {
+    max-width: 100%;
+  }
+}
