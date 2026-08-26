@@ -32,3 +32,61 @@
   color: var(--color-primario);
   margin-bottom: 2px;
 }
+
+
+/* ================================
+   ADAPTACIÓN PARA CELULARES
+   ================================ */
+
+.categoria-form,
+.producto-form,
+.lote-form,
+.ajuste-form {
+  width: 100%;
+  max-width: 520px;
+  box-sizing: border-box;
+}
+
+.categoria-form input,
+.categoria-form textarea,
+.categoria-form select,
+.producto-form input,
+.producto-form textarea,
+.producto-form select,
+.lote-form input,
+.lote-form textarea,
+.lote-form select,
+.ajuste-form input,
+.ajuste-form textarea,
+.ajuste-form select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.form-acciones {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .categoria-form,
+  .producto-form,
+  .lote-form,
+  .ajuste-form {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .form-acciones {
+    flex-direction: column;
+  }
+
+  .form-acciones button {
+    width: 100%;
+  }
+}

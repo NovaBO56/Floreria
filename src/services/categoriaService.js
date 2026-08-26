@@ -1,3 +1,4 @@
+
 // Acceso a Firestore para categorías.
 // Los componentes no consultan Firestore directamente,
 // siempre pasan por este servicio.
@@ -7,6 +8,8 @@ import {
   doc,
   addDoc,
   updateDoc,
+  deleteDoc,
+  getDocs,
   query,
   where,
   orderBy,
@@ -58,25 +61,85 @@ export function subscribeToTodasCategorias(callback) {
   });
 }
 
-// Crear categoría
+// ============================================================
+// CREAR
+// ============================================================
+
 export async function crearCategoria({ nombre, orden }) {
-  return addDoc(collection(db, 'categorias'), {
-    nombre,
-    orden: orden ?? 999,
+  const nombreLimpio = nombre.trim();
+
+  const categoriasRef = collection(db, 'categorias');
+
+  const q = query(
+    categoriasRef,
+    where('nombreNormalizado', '==', nombreLimpio.toLowerCase())
+  );
+
+  const snapshot = await getDocs(q);
+
+  if (!snapshot.empty) {
+    const error = new Error(
+      'Ya existe una categoría con ese nombre.'
+    );
+
+    error.code = 'CATEGORIA_DUPLICADA';
+
+    throw error;
+  }
+
+  return addDoc(categoriasRef, {
+    nombre: nombreLimpio,
+    nombreNormalizado: nombreLimpio.toLowerCase(),
+    orden: Number(orden) || 999,
     activo: true,
     visibleEnCatalogo: true,
   });
 }
 
-// Actualizar categoría
+// ============================================================
+// ACTUALIZAR
+// ============================================================
+
 export async function actualizarCategoria(id, datos) {
+  const nombreLimpio = datos.nombre.trim();
+
+  const categoriasRef = collection(db, 'categorias');
+
+  const q = query(
+    categoriasRef,
+    where('nombreNormalizado', '==', nombreLimpio.toLowerCase())
+  );
+
+  const snapshot = await getDocs(q);
+
+  const existeOtra = snapshot.docs.some(
+    (categoria) => categoria.id !== id
+  );
+
+  if (existeOtra) {
+    const error = new Error(
+      'Ya existe una categoría con ese nombre.'
+    );
+
+    error.code = 'CATEGORIA_DUPLICADA';
+
+    throw error;
+  }
+
   return updateDoc(
     doc(db, 'categorias', id),
-    datos
+    {
+      nombre: nombreLimpio,
+      nombreNormalizado: nombreLimpio.toLowerCase(),
+      orden: Number(datos.orden) || 999,
+    }
   );
 }
 
-// Activar / desactivar categoría
+// ============================================================
+// ACTIVAR / DESACTIVAR
+// ============================================================
+
 export async function cambiarEstadoCategoria(id, activo) {
   return updateDoc(
     doc(db, 'categorias', id),
@@ -84,7 +147,10 @@ export async function cambiarEstadoCategoria(id, activo) {
   );
 }
 
-// Mostrar / ocultar categoría en el catálogo
+// ============================================================
+// MOSTRAR / OCULTAR EN CATÁLOGO
+// ============================================================
+
 export async function cambiarVisibilidadCatalogo(
   id,
   visibleEnCatalogo
@@ -95,10 +161,50 @@ export async function cambiarVisibilidadCatalogo(
   );
 }
 
-// Cambiar orden
+// ============================================================
+// CAMBIAR ORDEN
+// ============================================================
+
 export async function actualizarOrden(id, orden) {
   return updateDoc(
     doc(db, 'categorias', id),
-    { orden }
+    {
+      orden: Number(orden),
+    }
   );
 }
+
+// ============================================================
+// ELIMINAR
+// ============================================================
+
+export async function eliminarCategoria(id) {
+  /*
+   * Antes de eliminar la categoría comprobamos si existen
+   * productos asociados a ella.
+   */
+
+  const productosRef = collection(db, 'productos');
+
+  const q = query(
+    productosRef,
+    where('categoriaId', '==', id)
+  );
+
+  const snapshot = await getDocs(q);
+
+  if (!snapshot.empty) {
+    const error = new Error(
+      'No se puede eliminar una categoría que tiene productos asociados.'
+    );
+
+    error.code = 'CATALOGO_CON_PRODUCTOS';
+
+    throw error;
+  }
+
+  return deleteDoc(
+    doc(db, 'categorias', id)
+  );
+}
+
